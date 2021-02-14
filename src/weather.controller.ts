@@ -10,4 +10,16 @@ export class WeatherController {
     const weatherData = await this.weatherService.getAllCityData(cityName);
     return { ...weatherData };
   }
+
+  @Get('onecall')
+  async getWeatherDataByCoord(
+    @Query('lon') lon: number,
+    @Query('lat') lat: number,
+  ): Promise<any> {
+    const weatherData = await this.weatherService.getWeatherDataByCoord(
+      lon,
+      lat,
+    );
+    return { ...weatherData };
+  }
 }
