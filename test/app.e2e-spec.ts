@@ -3,7 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 
-describe('AppController (e2e)', () => {
+describe('WeatherController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
@@ -15,10 +15,16 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
+  it('/weather?name=roma (GET)', () => {
     return request(app.getHttpServer())
-      .get('/')
+      .get('/weather?name=roma')
       .expect(200)
-      .expect('Hello World!');
+      .expect('Content-Type', /json/);
+  });
+
+  it('/weather/mobile?name=roma (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/weather/mobile?name=roma')
+      .expect('Content-Type', /json/);
   });
 });
